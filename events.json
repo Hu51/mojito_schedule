@@ -27,38 +27,66 @@
   "levels": [
     {
       "title": "Mindenki",
-      "class": "all-level",
-      "info": "Ezt az órát mindenki élvezni fogja"
+      "id": 1,
+      "info": "Ezt az órát mindenki élvezni fogja",
+      "style": [
+        "background-color: #71fce7",
+        "color: #000"
+      ]
     },
     {
       "title": "Tematikus táncok",
-      "class": "tematic",
-      "info": "mindenkinek a hétvége témájában"
+      "id": 2,
+      "info": "mindenkinek a hétvége témájában",
+      "style": [
+        "background-color: #53c0fc",
+        "color: #000"
+      ]
     },
     {
       "title": "Teljesen kezdő",
-      "class": "full-beginner",
-      "info": "még nem táncolt, vagy csak pár órát"
+      "id": 3,
+      "info": "még nem táncolt, vagy csak pár órát",
+      "style": [
+        "background-color: #21b000",
+        "color: #000"
+      ]
     },
     {
       "title": "Kezdő",
-      "class": "beginner",
-      "info": "2023. szeptemberben kezdett, vagy korábban"
+      "id": 4,
+      "info": "2023. szeptemberben kezdett, vagy korábban",
+      "style": [
+        "background-color: #87f84d",
+        "color: #000"
+      ]
     },
     {
       "title": "Középhaladó",
-      "class": "intermediate",
-      "info": "2023. januárban kezdett, vagy korábban"
+      "id": 5,
+      "info": "2023. januárban kezdett, vagy korábban",
+      "style": [
+        "background-color: #fdfa65",
+        "color: #000"
+      ]
     },
     {
       "title": "Középhaladó és Haladó",
-      "class": "intermediate-advanced",
-      "info": "mind a két szintnek"
+      "id": 6,
+      "info": "mind a két szintnek",
+      "style": [
+        "background-image: linear-gradient(180deg, #fdfa65 0%, #fd634c 100%)",
+        "color: #000"
+      ]
     },
     {
       "title": "Haladó",
-      "class": "advanced",
-      "info": "2022-ben kezdett, vagy korábban"
+      "id": 7,
+      "info": "2022-ben kezdett, vagy korábban",
+      "style": [
+        "background-color: #fd634c",
+        "color: #000"
+      ]
     }
   ],
   "events": [
@@ -69,7 +97,7 @@
       "hourEnd": "14:30",
       "title": "Megnyitó",
       "teachers": "",
-      "level": "all-level",
+      "level": 1,
       "dance": "egyéb"
     },
     {
@@ -79,7 +107,7 @@
       "hourEnd": "15:00",
       "title": "Zumba",
       "teachers": "Geri,Gyuri,Szabi",
-      "level": "all-level",
+      "level": 1,
       "dance": "zumba"
     },
     {
@@ -89,7 +117,7 @@
       "hourEnd": "16:00",
       "title": "Salsa",
       "teachers": "Gábor",
-      "level": "full-beginner",
+      "level": 3,
       "dance": "salsa"
     },
     {
@@ -99,7 +127,7 @@
       "hourEnd": "16:00",
       "title": "WCS",
       "teachers": "Greg",
-      "level": "all-level",
+      "level": 1,
       "dance": "wcs"
     },
     {
@@ -109,7 +137,7 @@
       "hourEnd": "16:00",
       "title": "Bachata",
       "teachers": "Sanyi",
-      "level": "all-level",
+      "level": 1,
       "dance": "bachata"
     },
     {
@@ -119,7 +147,7 @@
       "hourEnd": "16:00",
       "title": "Salsa",
       "teachers": "Levi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "salsa"
     },
     {
@@ -129,7 +157,7 @@
       "hourEnd": "17:00",
       "title": "Lábtechnika",
       "teachers": "Toncsi,Gyuri",
-      "level": "intermediate",
+      "level": 5,
       "dance": "salsa"
     },
     {
@@ -139,7 +167,7 @@
       "hourEnd": "17:00",
       "title": "Salsa",
       "teachers": "Gábor",
-      "level": "beginner",
+      "level": 4,
       "dance": "salsa"
     },
     {
@@ -149,7 +177,7 @@
       "hourEnd": "17:00",
       "title": "Bachata",
       "teachers": "Máté",
-      "level": "intermediate",
+      "level": 5,
       "dance": "bachata"
     },
     {
@@ -159,7 +187,7 @@
       "hourEnd": "17:00",
       "title": "Salsa",
       "teachers": "Sanyi",
-      "level": "intermediate-advanced",
+      "level": 6,
       "dance": "salsa"
     },
     {
@@ -169,7 +197,7 @@
       "hourEnd": "18:00",
       "title": "Salsa",
       "teachers": "Timi",
-      "level": "full-beginner",
+      "level": 3,
       "dance": "salsa"
     },
     {
@@ -179,7 +207,7 @@
       "hourEnd": "18:00",
       "title": "Zene-Ritmika",
       "teachers": "Sanyi",
-      "level": "all-level",
+      "level": 1,
       "dance": "egyéb"
     },
     {
@@ -189,7 +217,7 @@
       "hourEnd": "18:00",
       "title": "ZumbaGold",
       "teachers": "Barbi",
-      "level": "all-level",
+      "level": 1,
       "dance": "zumba"
     },
     {
@@ -199,7 +227,7 @@
       "hourEnd": "18:00",
       "title": "KardióRueda",
       "teachers": "Tomi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "rueda"
     },
     {
@@ -209,7 +237,7 @@
       "hourEnd": "19:00",
       "title": "Női mozgás",
       "teachers": "Timi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "egyéb"
     },
     {
@@ -219,7 +247,7 @@
       "hourEnd": "19:00",
       "title": "WCS",
       "teachers": "Greg",
-      "level": "intermediate",
+      "level": 5,
       "dance": "wcs"
     },
     {
@@ -229,7 +257,7 @@
       "hourEnd": "19:00",
       "title": "Rocky",
       "teachers": "Tomi",
-      "level": "tematic",
+      "level": 2,
       "dance": "egyéb"
     },
     {
@@ -239,7 +267,7 @@
       "hourEnd": "19:00",
       "title": "Salsa",
       "teachers": "Toncsi,Gyuri",
-      "level": "advanced",
+      "level": 7,
       "dance": "salsa"
     },
     {
@@ -249,7 +277,7 @@
       "hourEnd": "08:00",
       "title": "ZumbaGold",
       "teachers": "Barbi",
-      "level": "all-level",
+      "level": 1,
       "dance": "zumba"
     },
     {
@@ -259,7 +287,7 @@
       "hourEnd": "11:00",
       "title": "Salsa",
       "teachers": "Gábor",
-      "level": "full-beginner",
+      "level": 3,
       "dance": "salsa"
     },
     {
@@ -269,7 +297,7 @@
       "hourEnd": "11:00",
       "title": "Bachata",
       "teachers": "Máté",
-      "level": "beginner",
+      "level": 4,
       "dance": "bachata"
     },
     {
@@ -279,7 +307,7 @@
       "hourEnd": "11:00",
       "title": "Zumba",
       "teachers": "Geri,Gyuri,Szabi",
-      "level": "all-level",
+      "level": 1,
       "dance": "zumba"
     },
     {
@@ -289,7 +317,7 @@
       "hourEnd": "11:00",
       "title": "Salsa",
       "teachers": "Sanyi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "salsa"
     },
     {
@@ -299,7 +327,7 @@
       "hourEnd": "12:00",
       "title": "Salsa",
       "teachers": "Máté",
-      "level": "beginner",
+      "level": 4,
       "dance": "salsa"
     },
     {
@@ -309,7 +337,7 @@
       "hourEnd": "12:00",
       "title": "WCS",
       "teachers": "Greg",
-      "level": "full-beginner",
+      "level": 3,
       "dance": "wcs"
     },
     {
@@ -319,7 +347,7 @@
       "hourEnd": "12:00",
       "title": "Hogy lopjunk Nőt!",
       "teachers": "Tomi,Berni,Sanyi",
-      "level": "intermediate-advanced",
+      "level": 6,
       "dance": "salsa"
     },
     {
@@ -329,7 +357,7 @@
       "hourEnd": "12:00",
       "title": "Rueda fun",
       "teachers": "Timi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "rueda"
     },
     {
@@ -339,7 +367,7 @@
       "hourEnd": "13:00",
       "title": "Men's",
       "teachers": "Gyuri",
-      "level": "intermediate",
+      "level": 5,
       "dance": "salsa"
     },
     {
@@ -349,7 +377,7 @@
       "hourEnd": "13:00",
       "title": "Cha-cha",
       "teachers": "Tomi",
-      "level": "full-beginner",
+      "level": 3,
       "dance": "egyéb"
     },
     {
@@ -359,7 +387,7 @@
       "hourEnd": "13:00",
       "title": "Leadies'",
       "teachers": "Toncsi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "salsa"
     },
     {
@@ -369,7 +397,7 @@
       "hourEnd": "13:00",
       "title": "Salsa",
       "teachers": "Sanyi",
-      "level": "advanced",
+      "level": 7,
       "dance": "salsa"
     },
     {
@@ -379,7 +407,7 @@
       "hourEnd": "14:00",
       "title": "ZumbaGold",
       "teachers": "Barbi",
-      "level": "all-level",
+      "level": 1,
       "dance": "zumba"
     },
     {
@@ -389,7 +417,7 @@
       "hourEnd": "14:00",
       "title": "KardióRueda",
       "teachers": "Tomi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "rueda"
     },
     {
@@ -399,7 +427,7 @@
       "hourEnd": "15:00",
       "title": "L.A. Salsa",
       "teachers": "Berni,Sanyi",
-      "level": "intermediate-advanced",
+      "level": 6,
       "dance": "salsa"
     },
     {
@@ -409,7 +437,7 @@
       "hourEnd": "15:00",
       "title": "Bachata",
       "teachers": "Toncsi,Gyuri",
-      "level": "advanced",
+      "level": 7,
       "dance": "bachata"
     },
     {
@@ -419,7 +447,7 @@
       "hourEnd": "16:00",
       "title": "Nő! A maszk mögött",
       "teachers": "Timi",
-      "level": "tematic",
+      "level": 2,
       "dance": "egyéb"
     },
     {
@@ -429,7 +457,7 @@
       "hourEnd": "16:00",
       "title": "Kizomba",
       "teachers": "Greg",
-      "level": "all-level",
+      "level": 1,
       "dance": "kizomba"
     },
     {
@@ -439,7 +467,7 @@
       "hourEnd": "16:00",
       "title": "Angolkeringő",
       "teachers": "Berni,Tomi",
-      "level": "tematic",
+      "level": 2,
       "dance": "salsa"
     },
     {
@@ -449,7 +477,7 @@
       "hourEnd": "16:00",
       "title": "Salsa",
       "teachers": "Levi",
-      "level": "advanced",
+      "level": 7,
       "dance": "salsa"
     },
     {
@@ -459,7 +487,7 @@
       "hourEnd": "17:00",
       "title": "Salsa",
       "teachers": "Sanyi",
-      "level": "beginner",
+      "level": 4,
       "dance": "salsa"
     },
     {
@@ -469,7 +497,7 @@
       "hourEnd": "17:00",
       "title": "Rumba Bolero",
       "teachers": "Gábor",
-      "level": "tematic",
+      "level": 2,
       "dance": "egyéb"
     },
     {
@@ -479,7 +507,7 @@
       "hourEnd": "17:00",
       "title": "Női mozgás",
       "teachers": "Timi",
-      "level": "intermediate-advanced",
+      "level": 6,
       "dance": "egyéb"
     },
     {
@@ -489,7 +517,7 @@
       "hourEnd": "17:00",
       "title": "Salsa",
       "teachers": "Toncsi,Gyuri",
-      "level": "intermediate",
+      "level": 5,
       "dance": "salsa"
     },
     {
@@ -499,7 +527,7 @@
       "hourEnd": "18:00",
       "title": "WCS",
       "teachers": "Greg",
-      "level": "intermediate",
+      "level": 5,
       "dance": "wcs"
     },
     {
@@ -509,7 +537,7 @@
       "hourEnd": "18:00",
       "title": "Salsa",
       "teachers": "Máté",
-      "level": "beginner",
+      "level": 4,
       "dance": "salsa"
     },
     {
@@ -519,7 +547,7 @@
       "hourEnd": "18:00",
       "title": "Bachata",
       "teachers": "Levi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "bachata"
     },
     {
@@ -529,7 +557,7 @@
       "hourEnd": "18:00",
       "title": "Felices los 4",
       "teachers": "Timi,Tomi,Berni,Sanyi",
-      "level": "intermediate-advanced",
+      "level": 6,
       "dance": "salsa"
     },
     {
@@ -539,7 +567,7 @@
       "hourEnd": "19:00",
       "title": "Csoportkép, nyitótánc",
       "teachers": "",
-      "level": "tematic",
+      "level": 2,
       "dance": "egyéb"
     },
     {
@@ -549,177 +577,177 @@
       "hourEnd": "20:00",
       "title": "Zumba",
       "teachers": "Geri,Gyuri,Szabi",
-      "level": "all-level",
+      "level": 1,
       "dance": "zumba"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 3,
       "hour": "07:00",
       "hourEnd": "08:00",
       "title": "Zumba",
       "teachers": "Geri,Gyuri,Szabi",
-      "level": "all-level",
+      "level": 1,
       "dance": "zumba"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 1,
       "hour": "10:00",
       "hourEnd": "11:00",
       "title": "Cha-cha",
       "teachers": "Sanyi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "egyéb"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 2,
       "hour": "10:00",
       "hourEnd": "11:00",
       "title": "Salsa",
       "teachers": "Gábor",
-      "level": "full-beginner",
+      "level": 3,
       "dance": "salsa"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 3,
       "hour": "10:00",
       "hourEnd": "11:00",
       "title": "Rocky",
       "teachers": "Tomi",
-      "level": "tematic",
+      "level": 2,
       "dance": "egyéb"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 4,
       "hour": "10:00",
       "hourEnd": "11:00",
       "title": "Salsa",
       "teachers": "Toncsi,Gyuri",
-      "level": "intermediate-advanced",
+      "level": 6,
       "dance": "salsa"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 1,
       "hour": "11:00",
       "hourEnd": "12:00",
       "title": "L.A. Salsa",
       "teachers": "Sanyi",
-      "level": "all-level",
+      "level": 1,
       "dance": "salsa"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 2,
       "hour": "11:00",
       "hourEnd": "12:00",
       "title": "Salsa",
       "teachers": "Timi",
-      "level": "beginner",
+      "level": 4,
       "dance": "salsa"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 3,
       "hour": "11:00",
       "hourEnd": "12:00",
       "title": "Slowfox",
       "teachers": "Berni,Tomi",
-      "level": "tematic",
+      "level": 2,
       "dance": "egyéb"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 4,
       "hour": "11:00",
       "hourEnd": "12:00",
       "title": "Rueda gyak.",
       "teachers": "Máté",
-      "level": "intermediate",
+      "level": 5,
       "dance": "rueda"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 1,
       "hour": "12:00",
       "hourEnd": "13:00",
       "title": "Salsa",
       "teachers": "Máté",
-      "level": "advanced",
+      "level": 7,
       "dance": "salsa"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 2,
       "hour": "12:00",
       "hourEnd": "13:00",
       "title": "Bachata",
       "teachers": "Gábor",
-      "level": "full-beginner",
+      "level": 3,
       "dance": "bachata"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 3,
       "hour": "12:00",
       "hourEnd": "13:00",
       "title": "Bachata",
       "teachers": "Toncsi,Gyuri",
-      "level": "intermediate",
+      "level": 5,
       "dance": "bachata"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 4,
       "hour": "12:00",
       "hourEnd": "13:00",
       "title": "Rueda fun",
       "teachers": "Timi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "rueda"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 1,
       "hour": "13:00",
       "hourEnd": "14:00",
       "title": "Cha-cha",
       "teachers": "Levi",
-      "level": "beginner",
+      "level": 4,
       "dance": "egyéb"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 2,
       "hour": "13:00",
       "hourEnd": "14:00",
       "title": "Kizomba",
       "teachers": "Greg",
-      "level": "all-level",
+      "level": 1,
       "dance": "kizomba"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 3,
       "hour": "13:00",
       "hourEnd": "14:00",
       "title": "ZumbaGold",
       "teachers": "Barbi",
-      "level": "all-level",
+      "level": 1,
       "dance": "zumba"
     },
     {
-      "day": "2024.01.21",
+      "day": "2024-01-21",
       "room": 4,
       "hour": "13:00",
       "hourEnd": "14:00",
       "title": "KardióRueda",
       "teachers": "Tomi",
-      "level": "intermediate",
+      "level": 5,
       "dance": "rueda"
     }
   ]

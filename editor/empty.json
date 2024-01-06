@@ -1,0 +1,67 @@
+{
+  "levels": [
+    {
+      "title": "Mindenki",
+      "class": "all-level",
+      "info": "Ezt az órát mindenki élvezni fogja",
+      "style": [
+        "background-color: #71fce7",
+        "color: #000"
+      ]
+    },
+    {
+      "title": "Tematikus táncok",
+      "class": "tematic",
+      "info": "mindenkinek a hétvége témájában",
+      "style": [
+        "background-color: #53c0fc",
+        "color: #000"
+      ]
+    },
+    {
+      "title": "Teljesen kezdő",
+      "class": "full-beginner",
+      "info": "még nem táncolt, vagy csak pár órát",
+      "style": [
+        "background-color: #21b000",
+        "color: #000"
+      ]
+    },
+    {
+      "title": "Kezdő",
+      "class": "beginner",
+      "info": "2023. szeptemberben kezdett, vagy korábban",
+      "style": [
+        "background-color: #87f84d",
+        "color: #000"
+      ]
+    },
+    {
+      "title": "Középhaladó",
+      "class": "intermediate",
+      "info": "2023. januárban kezdett, vagy korábban",
+      "style": [
+        "background-image: linear-gradient(180deg, #fdfa65 0%, #fd634c 100%)",
+        "color: #000"
+      ]
+    },
+    {
+      "title": "Középhaladó és Haladó",
+      "class": "intermediate-advanced",
+      "info": "mind a két szintnek",
+      "style": [
+        "background-color: #fd634c",
+        "color: #000"
+      ]
+    },
+    {
+      "title": "Haladó",
+      "class": "advanced",
+      "info": "2022-ben kezdett, vagy korábban",
+      "style": [
+        "background-color: #71fce7",
+        "color: #000"
+      ]
+    }
+  ]
+}

@@ -10,7 +10,7 @@ $events    = $eventData['events'];
 
 $timeStart = 24;
 $timeEnd   = 0;
-$events = array_map(function ($event) {
+$events    = array_map(function ($event) {
     global $timeStart, $timeEnd;
     $event['day'] = str_replace('.', '-', $event['day']);
 //    if (!is_array($event['teachers'])) {
@@ -66,6 +66,19 @@ $eventId = 0;
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/main.css">
 
+    <style>
+        /*custom level from json*/
+        <?php foreach ($levels as $level): ?>
+
+        .level_<?= $level["id"]; ?> a {
+        <?php foreach ($level["style"] as $row): ?>
+        <?= trim($row, " ;") ?> !important;
+        <?php endforeach; ?>
+        }
+
+        <?php endforeach; ?>
+    </style>
+
     <!-- SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -83,7 +96,7 @@ $eventId = 0;
 
     <div class="row col-12">
         <!--        <div class="row col-8">-->
-        <!--            <ul class="itempicker">-->
+        <!--            <ul class="item-picker">-->
         <!--                --><?php //foreach ($teachers as $teacher): ?>
         <!--                    <li>-->
         <!--                        <div class="form-check">-->
@@ -96,7 +109,7 @@ $eventId = 0;
         <!--        </div>-->
 
         <div class="row col-7">
-            <ul class="itempicker">
+            <ul class="item-picker">
                 <?php foreach ($dances as $dance): ?>
                     <li>
                         <div class="form-check form-switch">
@@ -109,7 +122,7 @@ $eventId = 0;
         </div>
 
         <div class="row col-5">
-            <ul class="itempicker">
+            <ul class="item-picker">
                 <?php foreach ($days as $day): ?>
                     <li>
                         <div class="form-check form-switch">
@@ -122,12 +135,12 @@ $eventId = 0;
         </div>
 
         <div class="row col-12">
-            <ul class="itempicker">
+            <ul class="item-picker">
                 <?php foreach ($levels as $level): ?>
                     <li>
                         <div class="form-check form-switch">
-                            <input class="form-check-input lessonToggle " type="checkbox" checked id="level_<?= $level['class'] ?>">
-                            <label class="form-check-label" for="level_<?= $level['class'] ?>" title="<?= $level['title'] ?>: <?= $level['info']; ?>"><?= $level['title'] ?></label>
+                            <input class="form-check-input lessonToggle " type="checkbox" checked id="level_<?= $level['id'] ?>">
+                            <label class="form-check-label" for="level_<?= $level['id'] ?>" title="<?= $level['title'] ?>: <?= $level['info']; ?>"><?= $level['title'] ?></label>
                         </div>
                     </li>
                 <?php endforeach; ?>
@@ -163,7 +176,7 @@ $eventId = 0;
                                     ?>
                                     <li class="cd-schedule__event level_<?= $event["level"] ?> dance_<?= $event["dance"] ?>" data-level="<?= $event["level"] ?>" data-dance="<?= $event["dance"] ?>"
                                         id="event_<?= $eventId; ?>">
-                                        <a data-start="<?= $event['hour'] ?>" data-end="<?= $event['hourEnd'] ?>" data-event="event-2" >
+                                        <a data-start="<?= $event['hour'] ?>" data-end="<?= $event['hourEnd'] ?>" data-event="event-2">
                                             <div class="cd-schedule__name">
                                                 <div class="title"><?= $event['title'] ?></div>
                                                 <div class="teachers"><?= $event["teachersStr"] ?></div>
