@@ -1,0 +1,198 @@
+<!-- HTML -->
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <title>Karnevál Wellness Tánchétvége</title>
+    <meta charset="UTF-8">
+
+    <!-- CSS -->
+    <link crossorigin="anonymous" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css"
+          integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" referrerpolicy="no-referrer" rel="stylesheet"/>
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+
+    <!-- SCRIPTS -->
+    <script crossorigin="anonymous" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script crossorigin="anonymous"
+            integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" referrerpolicy="no-referrer"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.min.js"></script>
+
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
+</head>
+<body>
+
+<header>
+    <h3>Karnevál Wellness Tánchétvége</h3>
+    <p>Esemény: <span id="url"></span></p>
+
+    <div class="row col-12">
+        <div class="row col-5">
+            <ul class="itempicker" id="picker_days"></ul>
+        </div>
+
+        <div class="row col-7">
+            <ul class="itempicker" id="picker_dances"></ul>
+        </div>
+
+        <div class="row col-12">
+            <ul class="itempicker" id="picker_levels"></ul>
+        </div>
+    </div>
+</header>
+
+<div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
+    <div class="cd-schedule__timeline">
+        <ul>
+            <li><span>08:00</span></li>
+            <li><span>09:00</span></li>
+            <li><span>10:00</span></li>
+            <li><span>11:00</span></li>
+            <li><span>12:00</span></li>
+            <li><span>13:00</span></li>
+            <li><span>14:00</span></li>
+            <li><span>15:00</span></li>
+            <li><span>16:00</span></li>
+            <li><span>17:00</span></li>
+            <li><span>18:00</span></li>
+            <li><span>19:00</span></li>
+            <li><span>20:00</span></li>
+            <li><span>21:00</span></li>
+            <li><span>22:00</span></li>
+            <li><span>23:00</span></li>
+        </ul>
+    </div> <!-- .cd-schedule__timeline -->
+
+    <div class="cd-schedule__events">
+        <ul id="schedule__events">
+        </ul>
+    </div>
+
+    <div class="cd-schedule-modal">
+        <header class="cd-schedule-modal__header">
+            <div class="cd-schedule-modal__content">
+                <span class="cd-schedule-modal__date"></span>
+                <h3 class="cd-schedule-modal__name"></h3>
+            </div>
+
+            <div class="cd-schedule-modal__header-bg"></div>
+        </header>
+
+        <div class="cd-schedule-modal__body">
+            <div class="cd-schedule-modal__event-info"></div>
+            <div class="cd-schedule-modal__body-bg"></div>
+        </div>
+
+        <a class="cd-schedule-modal__close text-replace" href="#0">Close</a>
+    </div>
+
+    <div class="cd-schedule__cover-layer"></div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $.getJSON("events.json", function (json) {
+            const data = json;
+
+            const days = data.days;
+            let dances = [];
+            const levels = data.levels;
+            const rooms = data.rooms;
+            let events = data.events;
+
+            document.getElementById('url').innerHTML = '<a href="' + data.url + '" target="_blank">' + data.url + '</a>';
+
+            const picker_days = $('#picker_days');
+            const picker_dances = $('#picker_dances');
+            const picker_levels = $('#picker_levels');
+
+            days.forEach(day => {
+                picker_days.append('<li><div class="form-check"><input checked class="form-check-input lessonToggle lessonToggleDay " id="day_' + day + '" type="checkbox"><label class="form-check-label" for="day_' + day + '">' + day + '</label></div></li>');
+            });
+
+            levels.forEach(level => {
+                picker_levels.append('<li><div class="form-check"><input checked class="form-check-input lessonToggle lessonToggleLevel " id="level_' + level + '" type="checkbox"><label class="form-check-label" for="level_' + level.id + '">' + level.title + '</label></div></li>');
+            });
+
+            dances = data.events.reduce((acc, event) => {
+                if (acc.indexOf(event.dance) === -1) {
+                    acc.push(event.dance);
+                }
+                return acc;
+            }, []);
+
+            dances.forEach(dance => {
+                picker_dances.append('<li><div class="form-check"><input checked class="form-check-input lessonToggle lessonToggleDance " id="dance_' + dance + '" type="checkbox"><label class="form-check-label" for="dance_' + dance + '">' + dance.toUpperCase() + '</label></div></li>');
+            });
+
+            const scheduleEventsDiv = $('#schedule__events');
+            let eventID = 1;
+            days.forEach(day => {
+                rooms.forEach(room => {
+                    let dayRoomdiv = document.createElement('li')
+                    dayRoomdiv.classList.add('cd-schedule__group');
+                    dayRoomdiv.classList.add('day_' + day);
+                    dayRoomdiv.classList.add('room_' + room.id);
+
+                    let dayRoomdivTop = document.createElement('div')
+                    dayRoomdivTop.classList.add('cd-schedule__top-info');
+                    dayRoomdivTop.classList.add('text-center');
+                    dayRoomdivTop.innerHTML = '<span>' + day + '<br>' + room.title + '</span>';
+                    dayRoomdiv.appendChild(dayRoomdivTop);
+
+                    let eventsDiv = document.createElement('ul');
+
+                    const actualEvents = events.filter(e => e.day === day && parseInt(e.room) === room.id);
+                    events = events.filter(e => e.day !== day || parseInt(e.room) !== room.id);
+                    actualEvents.forEach(event => {
+                        let eventDiv = document.createElement('li');
+                        eventDiv.classList.add('cd-schedule__event');
+                        eventDiv.setAttribute('data-level', event.level);
+                        eventDiv.setAttribute('data-dance', event.dance);
+                        eventDiv.setAttribute('data-teachers', event.teachers);
+
+                        eventDiv.classList.add('level_' + event.level);
+                        eventDiv.classList.add('dance_' + event.dance);
+                        eventDiv.classList.add('cd-schedule__event');
+
+                        let eventDivLink = document.createElement('a');
+                        eventDivLink.setAttribute('data-start', event.hour);
+                        eventDivLink.setAttribute('data-end', event.hourEnd);
+                        eventDivLink.setAttribute('data-event', 'event-' + eventID++);
+                        eventDivLink.setAttribute('href', '#0');
+
+                        let eventDivLinkEm = document.createElement('div');
+                        eventDivLinkEm.classList.add('cd-schedule__name');
+                        eventDivLinkEm.innerHTML =
+                            '<div class="title">' + event.title + '</div>\n' +
+                            '<div class="teachers">' + event.teachers + '</div>\n';
+
+                        eventDivLink.appendChild(eventDivLinkEm);
+                        eventDiv.appendChild(eventDivLink);
+                        eventsDiv.appendChild(eventDiv);
+                    });
+
+                    dayRoomdiv.appendChild(eventsDiv);
+                    scheduleEventsDiv.append(dayRoomdiv);
+                });
+            });
+        });
+    });
+
+    $(".lessonToggle").on('click', function () {
+        if ($(this).is(':checked')) {
+            $('.' + $(this).attr('id')).show();
+        } else {
+            $('.' + $(this).attr('id')).hide();
+        }
+    });
+
+</script>
+<script defer src="assets/js/util.js"></script>
+<script defer src="assets/js/main.js"></script>
+
+</body>
+
+</html>

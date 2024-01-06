@@ -1,75 +1,36 @@
-<!-- HTML -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Calendar</title>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css"
-          integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/main.css">
-
-    <!-- SCRIPTS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.min.js"
-            integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script>document.getElementsByTagName("html")[0].className += " js";</script>
-</head>
-
 <?php
 
-$rooms  = ['Eger', 'Park', 'Kisterem', 'Nagyterem'];
-$days   = ['2024-01-19', '2024-01-20', '2024-01-21'];
-$days   = ['2024-01-19', '2024-01-20'];
-$levels = [[
-    "title" => "Mindenki",
-    "class" => "level-all"
-], [
-    "title" => "Tematikus",
-    "class" => "level-tematic"
-], [
-    "title" => "Teljesen kezdő",
-    "class" => "level-beginner"
-], [
-    "title" => "Kezdő 2023",
-    "class" => "level-beginner2023"
-], [
-    "title" => "Középhaladó 2023",
-    "class" => "level-intermediate2023"
-], [
-    "title" => "Középhaladó és Haladó",
-    "class" => "level-intermediate-advanced"
-], [
-    "title" => "Haladó 2022",
-    "class" => "level-advanced2022"
-]];
+$eventData = json_decode(file_get_contents('events.json'), true);
 
-$events =
-    [
-        [
-            "day"      => "2024-01-19",
-            "room"     => "Eger",
-            "hour"     => "10:00",
-            "hourEnd"  => "11:00",
-            "title"    => "Meeting",
-            "teachers" => ['Tomi', 'Sanyi'],
-            "level"    => "level-all",
-            "dance"     => "WestCoastSwing"
-        ],
-        [
-            "day"      => "2024-01-19",
-            "room"     => "Eger",
-            "hour"     => "11:00",
-            "hourEnd"  => "13:00",
-            "title"    => "Meeting",
-            "teachers" => ['Greg', 'Barbi'],
-            "level"    => "level-intermediate2023",
-            "dance"     => "Salsa"
-        ]
-    ];
+$days      = $eventData['days'];
+$rooms     = $eventData['rooms'];
+$maxRoomID = max(array_keys($rooms));
+$levels    = $eventData['levels'];
+$events    = $eventData['events'];
+
+$timeStart = 24;
+$timeEnd   = 0;
+$events = array_map(function ($event) {
+    global $timeStart, $timeEnd;
+    $event['day'] = str_replace('.', '-', $event['day']);
+//    if (!is_array($event['teachers'])) {
+//        $event['teachers'] = explode(',', $event['teachers']);
+//    }
+//    $event['teachersStr'] = implode(', ', $event['teachers']);
+    $event['teachersStr'] = $event['teachers'];
+    $event['teachers']    = array($event['teachers']);
+
+    $hour = (int)explode(':', $event['hour'])[0];
+    if ($hour < $timeStart) {
+        $timeStart = $hour;
+    }
+
+    $hour = (int)explode(':', $event['hourEnd'])[0];
+    if ($hour > $timeEnd) {
+        $timeEnd = $hour;
+    }
+    return $event;
+}, $events);
 
 $teachers = array_reduce($events, function ($acc, $event) {
     foreach ($event['teachers'] as $teacher) {
@@ -92,49 +53,82 @@ sort($dances);
 
 $eventId = 0;
 ?>
+<!-- HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><?= $eventData["title"]; ?></title>
+    <meta charset="UTF-8">
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/css/bootstrap.min.css"
+          integrity="sha512-b2QcS5SsA8tZodcDtGRELiGv5SaKSk1vDHDaQRda0htPYWZ6046lr3kJ5bAAQdpV2mmA/4v0wQF9MyU6/pDIAg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- SCRIPTS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.2/js/bootstrap.min.js"
+            integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
+
+
+</head>
 <body>
 <header>
+    <h3><?= $eventData["title"]; ?></h3>
+    <p>Esemény: <a href="<?= $eventData["url"]; ?>" target="_blank"><?= $eventData["url"]; ?></a></p>
+
     <div class="row col-12">
-        <div class="row col-3">
-            <ul>
-                <?php foreach ($days as $day): ?>
-                    <li>
-                        <input type="checkbox" class="lessonToggle active" data-target="day_<?= $day ?>" checked>
-                        <?= $day ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+        <!--        <div class="row col-8">-->
+        <!--            <ul class="itempicker">-->
+        <!--                --><?php //foreach ($teachers as $teacher): ?>
+        <!--                    <li>-->
+        <!--                        <div class="form-check">-->
+        <!--                            <input class="form-check-input lessonToggle lessonToggleTeacher " type="checkbox" checked id="teacher_--><?php //= $teacher ?><!--">-->
+        <!--                            <label class="form-check-label" for="day_--><?php //= $teacher ?><!--">--><?php //= $teacher ?><!--</label>-->
+        <!--                        </div>-->
+        <!--                    </li>-->
+        <!--                --><?php //endforeach; ?>
+        <!--            </ul>-->
+        <!--        </div>-->
 
-        <div class="row col-3">
-            <ul>
-                <?php foreach ($teachers as $teacher): ?>
-                    <li>
-                        <input type="checkbox" class="lessonToggle active" data-target="teacher_<?= $teacher ?>" checked>
-                        <?= $teacher ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
-
-        <div class="row col-3">
-            <ul>
-            <?php foreach ($levels as $level): ?>
-                <li>
-                    <input type="checkbox" class="lessonToggle active" data-target="level_<?= $level['class'] ?>" checked>
-                    <?= $level['title'] ?>
-                </li>
-            <?php endforeach; ?>
-            </ul>
-        </div>
-
-        <div class="row col-3">
-            <ul>
+        <div class="row col-7">
+            <ul class="itempicker">
                 <?php foreach ($dances as $dance): ?>
                     <li>
-                        <input type="checkbox" class="lessonToggle active" data-target="dance_<?= $dance ?>" checked>
-                        <?= $dance ?>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input lessonToggle" type="checkbox" checked id="dance_<?= $dance ?>">
+                            <label class="form-check-label" for="dance_<?= $dance ?>"><?= strtoupper($dance) ?></label>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+
+        <div class="row col-5">
+            <ul class="itempicker">
+                <?php foreach ($days as $day): ?>
+                    <li>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input lessonToggleDay" type="checkbox" checked id="day_<?= $day ?>">
+                            <label class="form-check-label" for="day_<?= $day ?>"><?= $day ?></label>
+                        </div>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+
+        <div class="row col-12">
+            <ul class="itempicker">
+                <?php foreach ($levels as $level): ?>
+                    <li>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input lessonToggle " type="checkbox" checked id="level_<?= $level['class'] ?>">
+                            <label class="form-check-label" for="level_<?= $level['class'] ?>" title="<?= $level['title'] ?>: <?= $level['info']; ?>"><?= $level['title'] ?></label>
+                        </div>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -145,40 +139,39 @@ $eventId = 0;
 <div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
     <div class="cd-schedule__timeline">
         <ul>
-            <?php for ($i = 8; $i < 24; $i++): ?>
+            <?php for ($i = $timeStart; $i < $timeEnd; $i++): ?>
                 <li><span><?= sprintf("%02s", $i) ?>:00</span></li>
             <?php endfor; ?>
         </ul>
     </div> <!-- .cd-schedule__timeline -->
 
     <div class="cd-schedule__events">
-        <ul>
+        <ul id="schedule__events">
             <?php foreach ($days as $day): ?>
-                <?php foreach ($rooms as $room): ?>
-                    <li class="cd-schedule__group day_<?= $day; ?>">
-                        <div class="cd-schedule__top-info text-center"><span><?= $day ?><br><?= $room ?></span></div>
-
+                <?php foreach ($rooms as $roomID => $room): ?>
+                    <li class="cd-schedule__group day_<?= $day; ?> <?= ($roomID == $maxRoomID) ? 'dayEnd' : '' ?>">
+                        <div class="cd-schedule__top-info text-center">
+                            <span><?= $day ?><br><?= $room["title"] ?></span>
+                        </div>
                         <ul>
-                            <li class="cd-schedule__event">
-                                <a data-start="09:00" data-end="10:00" data-content="event-rowing-workout" data-event="event-2" href="#0">
-                                    <em class="cd-schedule__name">Rowing Workout</em>
-                                </a>
-                            </li>
-
                             <?php foreach ($events as $event): ?>
-                                <?php if ($event['day'] == $day && $event['room'] == $room):
+                                <?php if ($event['day'] == $day && (int)$event['room'] == ($room["id"])):
                                     $eventId++;
                                     $teacherStr = implode(' ', array_map(function ($teacher) {
                                         return 'teacher_' . $teacher;
                                     }, $event['teachers']));
                                     ?>
-                                    <li class="cd-schedule__event level_<?= $event["level"] ?> <?= $teacherStr ?> dance_<?= $event["dance"] ?>">
-                                        <a data-start="<?= $event['hour'] ?>" data-end="<?= $event['hourEnd'] ?>" data-content="bob" data-event="event-2" href="#0">
-                                            <em class="cd-schedule__name"><?= $event['title'] ?></em>
+                                    <li class="cd-schedule__event level_<?= $event["level"] ?> dance_<?= $event["dance"] ?>" data-level="<?= $event["level"] ?>" data-dance="<?= $event["dance"] ?>"
+                                        id="event_<?= $eventId; ?>">
+                                        <a data-start="<?= $event['hour'] ?>" data-end="<?= $event['hourEnd'] ?>" data-event="event-2" >
+                                            <div class="cd-schedule__name">
+                                                <div class="title"><?= $event['title'] ?></div>
+                                                <div class="teachers"><?= $event["teachersStr"] ?></div>
+                                            </div>
                                         </a>
                                     </li>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
+                                <?php endif;
+                            endforeach; ?>
                         </ul>
                     </li>
                 <?php endforeach; ?>
@@ -186,18 +179,56 @@ $eventId = 0;
         </ul>
     </div>
 
+    <div class="cd-schedule-modal">
+        <header class="cd-schedule-modal__header">
+            <div class="cd-schedule-modal__content">
+                <span class="cd-schedule-modal__date"></span>
+                <h3 class="cd-schedule-modal__name"></h3>
+            </div>
+
+            <div class="cd-schedule-modal__header-bg"></div>
+        </header>
+
+        <div class="cd-schedule-modal__body">
+            <div class="cd-schedule-modal__event-info"></div>
+            <div class="cd-schedule-modal__body-bg"></div>
+        </div>
+
+        <a class="cd-schedule-modal__close text-replace" href="#0">Close</a>
+    </div>
 
     <div class="cd-schedule__cover-layer"></div>
 </div>
 
-<script src="assets/js/util.js"></script> <!-- util functions included in the CodyHouse framework -->
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 <script>
 
     $(".lessonToggle").click(function () {
+        const events = $('.cd-schedule__event');
+
+        for (const event of events) {
+            let eventOBJ = $("li#" + event.id);
+            const level = eventOBJ.data('level');
+            const dance = eventOBJ.data('dance');
+            const day = eventOBJ.data('day');
+            const teacher = eventOBJ.data('teacher');
+
+            if ($('#level_' + level).is(':checked') && $('#dance_' + dance).is(':checked')) {
+                // && $('#day_' + day).is(':checked') && $('#teacher_' + teacher).is(':checked')
+                eventOBJ.show();
+            } else {
+                eventOBJ.hide();
+            }
+        }
+    });
+
+
+    $(".lessonToggleDay").on('click', function () {
         if ($(this).is(':checked')) {
-            $('.' + $(this).data('target')).show();
+            $('.' + $(this).attr('id')).show();
         } else {
-            $('.' + $(this).data('target')).hide();
+            $('.' + $(this).attr('id')).hide();
         }
     });
 
