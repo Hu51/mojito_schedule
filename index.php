@@ -13,12 +13,10 @@ $timeEnd   = 0;
 $events    = array_map(function ($event) {
     global $timeStart, $timeEnd;
     $event['day'] = str_replace('.', '-', $event['day']);
-//    if (!is_array($event['teachers'])) {
-//        $event['teachers'] = explode(',', $event['teachers']);
-//    }
-//    $event['teachersStr'] = implode(', ', $event['teachers']);
-    $event['teachersStr'] = $event['teachers'];
-    $event['teachers']    = array($event['teachers']);
+    if (!is_array($event['teachers'])) {
+        $event['teachers'] =explode(',', $event['teachers']) ?: [];
+    }
+    $event['teachersStr'] = implode(',', $event['teachers']);
 
     $hour = (int)explode(':', $event['hour'])[0];
     if ($hour < $timeStart) {
@@ -33,11 +31,10 @@ $events    = array_map(function ($event) {
 }, $events);
 
 $teachers = array_reduce($events, function ($acc, $event) {
-    foreach ($event['teachers'] as $teacher) {
+        $teacher = $event["teachersStr"];
         if (!empty($teacher) && !in_array($teacher, $acc)) {
             $acc[] = $teacher;
         }
-    }
     return $acc;
 }, []);
 
@@ -71,8 +68,7 @@ $eventId = 0;
         <?php foreach ($levels as $level): ?>
 
         .level_<?= $level["id"]; ?> a {
-        <?php foreach ($level["style"] as $row): ?>
-        <?= trim($row, " ;") ?> !important;
+        <?php foreach ($level["style"] as $row): ?><?= trim($row, " ;") ?> !important;
         <?php endforeach; ?>
         }
 
@@ -95,18 +91,18 @@ $eventId = 0;
     <p>Esemény: <a href="<?= $eventData["url"]; ?>" target="_blank"><?= $eventData["url"]; ?></a></p>
 
     <div class="row col-12">
-        <!--        <div class="row col-8">-->
-        <!--            <ul class="item-picker">-->
-        <!--                --><?php //foreach ($teachers as $teacher): ?>
-        <!--                    <li>-->
-        <!--                        <div class="form-check">-->
-        <!--                            <input class="form-check-input lessonToggle lessonToggleTeacher " type="checkbox" checked id="teacher_--><?php //= $teacher ?><!--">-->
-        <!--                            <label class="form-check-label" for="day_--><?php //= $teacher ?><!--">--><?php //= $teacher ?><!--</label>-->
-        <!--                        </div>-->
-        <!--                    </li>-->
-        <!--                --><?php //endforeach; ?>
-        <!--            </ul>-->
-        <!--        </div>-->
+<!--        <div class="row col-12">-->
+<!--            <ul class="item-picker">-->
+<!--                --><?php //foreach ($teachers as $teacher): ?>
+<!--                    <li>-->
+<!--                        <div class="form-check form-switch">-->
+<!--                            <input class="form-check-input lessonToggle" type="checkbox" checked id="teacher_--><?php //= $teacher ?><!--">-->
+<!--                            <label class="form-check-label" for="day_--><?php //= $teacher ?><!--">--><?php //= $teacher ?><!--</label>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                --><?php //endforeach; ?>
+<!--            </ul>-->
+<!--        </div>-->
 
         <div class="row col-7">
             <ul class="item-picker">
@@ -170,11 +166,10 @@ $eventId = 0;
                             <?php foreach ($events as $event): ?>
                                 <?php if ($event['day'] == $day && (int)$event['room'] == ($room["id"])):
                                     $eventId++;
-                                    $teacherStr = implode(' ', array_map(function ($teacher) {
-                                        return 'teacher_' . $teacher;
-                                    }, $event['teachers']));
                                     ?>
-                                    <li class="cd-schedule__event level_<?= $event["level"] ?> dance_<?= $event["dance"] ?>" data-level="<?= $event["level"] ?>" data-dance="<?= $event["dance"] ?>"
+                                    <li class="cd-schedule__event level_<?= $event["level"] ?> dance_<?= $event["dance"] ?> "
+                                        data-level="<?= $event["level"] ?>"
+                                        data-dance="<?= $event["dance"] ?>"
                                         id="event_<?= $eventId; ?>">
                                         <a data-start="<?= $event['hour'] ?>" data-end="<?= $event['hourEnd'] ?>" data-event="event-2">
                                             <div class="cd-schedule__name">
